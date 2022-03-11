@@ -1,23 +1,26 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import "./App.css";
+import AddSong from "./Componets/AddSong/AddSong";
+
+
+
 import './App.css';
 
 function App() {
+  const [songs, setSongs] = useState([
+
+  ]);
+
+  function addNewSong(song){
+    let tempSongs = [...songs, song];
+    setSongs(tempSongs);
+  }
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Test</h1>
+
     </div>
   );
 }
