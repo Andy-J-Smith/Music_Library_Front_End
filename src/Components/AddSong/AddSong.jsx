@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AddSong.css";
 import "@fontsource/roboto";
 import "@material-ui/core";
@@ -21,6 +21,7 @@ const AddSong = (props) => {
       genre: genre,
     };
     console.log(newSong);
+    props.createSong(newSong);
   }
   return (
     <form onSubmit={handleSong}>

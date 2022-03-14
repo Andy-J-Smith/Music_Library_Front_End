@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import AddSong from "./Components/AddSong/AddSong";
 import "@fontsource/roboto";
@@ -8,11 +8,13 @@ import { Grid, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import { CallMissedSharp } from "@material-ui/icons";
 import  Image  from './images/jeremy.jpg';
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundImage: `url(${Image})`
+
+  
 
   },
   paper: {
@@ -26,10 +28,29 @@ function App() {
   const classes = useStyles();
   const [songs, setSongs] = useState([]);
 
-  function addNewSong(song) {
-    let tempSongs = [...songs, song];
-    setSongs(tempSongs);
+  useEffect(()=>{
+    getAllSongs();
+  },[])
+
+ 
+
+  async function createSong(newSong){
+    let response = await axios.post('http://127.0.0.1:8000/api/music/songs/', newSong);
+    if (response.status === 201){
+      await getAllSongs();
+      
+    } 
+
   }
+
+  async function getAllSongs(){
+    let response = await axios.get('http://127.0.0.1:8000/api/music/songs/');
+    setSongs();
+    console.log(response.data);
+    
+  }
+
+
 
   return (
     <div className={classes.root}>
@@ -42,9 +63,9 @@ function App() {
           <Grid item xs={4}></Grid>
         </Grid>
         <Grid item xs={1}></Grid>
-        <Grid item alignContent="center" xs={10}>
+        <Grid item xs={10}>
           <Paper className={classes.paper}>
-            <AddSong />
+            <AddSong createSong={createSong} />
           </Paper>
         </Grid>
       </Grid>
