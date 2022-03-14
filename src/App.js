@@ -35,11 +35,11 @@ function App() {
     <div className={classes.root}>
       <Grid container alignItems="center" direction="row" spacing={1}>
         <Grid container alignItems="center" direction="row" spacing={1}>
-          <Grid item xs={1}></Grid>
-          <Grid item xs={10}>
+          <Grid item xs={4}></Grid>
+          <Grid item xs={4}>
             <NavBar />
           </Grid>
-          <Grid item xs={1}></Grid>
+          <Grid item xs={4}></Grid>
         </Grid>
         <Grid item xs={1}></Grid>
         <Grid item alignContent="center" xs={10}>
