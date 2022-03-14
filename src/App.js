@@ -11,15 +11,12 @@ import { CallMissedSharp } from "@material-ui/icons";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    
   },
   paper: {
     padding: theme.spacing(5),
     textAlign: "center",
     color: theme.palette.text.secondary,
   },
-
-
 }));
 
 function App() {
@@ -34,13 +31,17 @@ function App() {
   return (
     <div className={classes.root}>
       <Grid container alignItems="center" direction="row" spacing={1}>
-        <Grid item  xs={12}>
-          
-            <NavBar/>
+        <Grid container alignItems="center" direction="row" spacing={1}>
+          <Grid item xs={1}></Grid>
+          <Grid item xs={10}>
+            <NavBar />
+          </Grid>
+          <Grid item xs={1}></Grid>
         </Grid>
-        <Grid item xs={10}>
+        <Grid item xs={1}></Grid>
+        <Grid item alignContent="center" xs={10}>
           <Paper className={classes.paper}>
-            <AddSong/>
+            <AddSong />
           </Paper>
         </Grid>
       </Grid>
