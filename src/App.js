@@ -7,15 +7,13 @@ import NavBar from "./Components/NavBar/NavBar";
 import { Grid, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import { CallMissedSharp } from "@material-ui/icons";
-import  Image  from './images/jeremy.jpg';
+import Image from "./images/jeremy.jpg";
 import axios from "axios";
+import DisplaySong from "./Components/DisplaySong/DisplaySong";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-
-  
-
   },
   paper: {
     padding: theme.spacing(5),
@@ -28,29 +26,25 @@ function App() {
   const classes = useStyles();
   const [songs, setSongs] = useState([]);
 
-  useEffect(()=>{
+  useEffect(() => {
     getAllSongs();
-  },[])
+  }, []);
 
- 
-
-  async function createSong(newSong){
-    let response = await axios.post('http://127.0.0.1:8000/api/music/songs/', newSong);
-    if (response.status === 201){
+  async function createSong(newSong) {
+    let response = await axios.post(
+      "http://127.0.0.1:8000/api/music/songs/",
+      newSong
+    );
+    if (response.status === 201) {
       await getAllSongs();
-      
-    } 
-
+    }
   }
 
-  async function getAllSongs(){
-    let response = await axios.get('http://127.0.0.1:8000/api/music/songs/');
-    setSongs();
+  async function getAllSongs() {
+    let response = await axios.get("http://127.0.0.1:8000/api/music/songs/");
+    setSongs(response.data);
     console.log(response.data);
-    
   }
-
-
 
   return (
     <div className={classes.root}>
@@ -66,6 +60,11 @@ function App() {
         <Grid item xs={10}>
           <Paper className={classes.paper}>
             <AddSong createSong={createSong} />
+          </Paper>
+        </Grid>
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+            <DisplaySong getAllSongs={getAllSongs} songs={songs} />
           </Paper>
         </Grid>
       </Grid>
