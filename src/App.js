@@ -40,6 +40,14 @@ function App() {
     }
   }
 
+  // async function deleteSong(id, e ) {
+  //   let response = await axios.delete(
+  //     `http://127.0.0.1:8000/api/music/songs/${id}`
+  //   );
+  
+  //   }
+  // }
+
   async function getAllSongs() {
     let response = await axios.get("http://127.0.0.1:8000/api/music/songs/");
     setSongs(response.data);
@@ -50,11 +58,11 @@ function App() {
     <div className={classes.root}>
       <Grid container alignItems="center" direction="row" spacing={1}>
         <Grid container alignItems="center" direction="row" spacing={1}>
-          <Grid item xs={4}></Grid>
-          <Grid item xs={4}>
+          <Grid item xs={1}></Grid>
+          <Grid item xs={10}>
             <NavBar />
           </Grid>
-          <Grid item xs={4}></Grid>
+          <Grid item xs={1}></Grid>
         </Grid>
         <Grid item xs={1}></Grid>
         <Grid item xs={10}>
@@ -62,10 +70,12 @@ function App() {
             <AddSong createSong={createSong} />
           </Paper>
         </Grid>
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            <DisplaySong getAllSongs={getAllSongs} songs={songs} />
-          </Paper>
+        <Grid container alignItems="center" direction="column" spacing={1}>
+            <Grid item xs={12}>
+              <Paper className={classes.paper}>
+                <DisplaySong getAllSongs={getAllSongs} songs={songs} />
+              </Paper>
+            </Grid>
         </Grid>
       </Grid>
     </div>
