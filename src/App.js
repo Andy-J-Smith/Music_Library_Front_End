@@ -38,7 +38,7 @@ function App() {
     }
   }
 
-  async function deleteSong(id, e ) {
+  async function deleteSong(id) {
     let response = await axios.delete(
       `http://127.0.0.1:8000/api/music/songs/${id}`
     );
@@ -58,7 +58,11 @@ function App() {
 
     if (keyword !== "") {
       const results = songs.filter((songs) => {
-        return songs.title.toLowerCase().startsWith(keyword.toLowerCase());
+        return songs.title.toLowerCase().includes(keyword.toLowerCase()) || 
+        songs.artist.toLowerCase().includes(keyword.toLowerCase()) || 
+        songs.album.toLowerCase().includes(keyword.toLowerCase()) || 
+        songs.release_date.toLowerCase().includes(keyword.toLowerCase()) || 
+        songs.genre.toLowerCase().includes(keyword.toLowerCase());  
       });
       setSongs(results);
     } else {
@@ -96,7 +100,7 @@ function App() {
         <Grid container alignItems="center" direction="column" spacing={1}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
-              <input type="text" onChange={(event) => handleSearch(event)} />
+              <input name="Search" type="text" onChange={(event) => handleSearch(event)} />
               <DisplaySong deleteSong={deleteSong} songs={songs} />
             </Paper>
           </Grid>
