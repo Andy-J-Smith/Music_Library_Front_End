@@ -4,10 +4,11 @@ import AddSong from "./Components/AddSong/AddSong";
 import "@fontsource/roboto";
 import "./App.css";
 import NavBar from "./Components/NavBar/NavBar";
-import { Grid, Paper } from "@material-ui/core";
+import { Grid, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import axios from "axios";
 import DisplaySong from "./Components/DisplaySong/DisplaySong";
+import Image  from './images/jeremy.jpg';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,7 +27,7 @@ function App() {
 
   useEffect(() => {
     getAllSongs();
-  }, []);           //add search function result into []
+  }, []);
 
   async function createSong(newSong) {
     let response = await axios.post(
@@ -42,9 +43,7 @@ function App() {
     let response = await axios.delete(
       `http://127.0.0.1:8000/api/music/songs/${id}`
     );
-
-    }
-  
+  }
 
   async function getAllSongs() {
     let response = await axios.get("http://127.0.0.1:8000/api/music/songs/");
@@ -52,34 +51,24 @@ function App() {
     console.log(response.data);
   }
 
-
   const handleSearch = (event) => {
     const keyword = event.target.value;
 
     if (keyword !== "") {
       const results = songs.filter((songs) => {
-        return songs.title.toLowerCase().includes(keyword.toLowerCase()) || 
-        songs.artist.toLowerCase().includes(keyword.toLowerCase()) || 
-        songs.album.toLowerCase().includes(keyword.toLowerCase()) || 
-        songs.release_date.toLowerCase().includes(keyword.toLowerCase()) || 
-        songs.genre.toLowerCase().includes(keyword.toLowerCase());  
+        return (
+          songs.title.toLowerCase().includes(keyword.toLowerCase()) ||
+          songs.artist.toLowerCase().includes(keyword.toLowerCase()) ||
+          songs.album.toLowerCase().includes(keyword.toLowerCase()) ||
+          songs.release_date.toLowerCase().includes(keyword.toLowerCase()) ||
+          songs.genre.toLowerCase().includes(keyword.toLowerCase())
+        );
       });
       setSongs(results);
     } else {
       setSongs(songs);
     }
   };
-
-  // function findParents(personWithParents, people) {
-  //   let foundParents = people.filter(function (potentialParent) {
-  //     if (personWithParents.parents.includes(personWithParents.id)) {
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   });
-  //   displayPeople(foundParents);
-  // }
 
   return (
     <div className={classes.root}>
@@ -94,14 +83,19 @@ function App() {
         <Grid item xs={1}></Grid>
         <Grid item xs={10}>
           <Paper className={classes.paper}>
+            <Typography>
+            <h2>Add Song</h2></Typography>
             <AddSong createSong={createSong} />
           </Paper>
         </Grid>
         <Grid container alignItems="center" direction="column" spacing={1}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
-              <input name="Search" type="text" onChange={(event) => handleSearch(event)} />
-              <DisplaySong deleteSong={deleteSong} songs={songs} />
+              <Typography>
+                <h2>Search Songs</h2>
+                <input type="text" onChange={(event) => handleSearch(event)} />
+                <DisplaySong deleteSong={deleteSong} songs={songs} />
+              </Typography>
             </Paper>
           </Grid>
         </Grid>
