@@ -4,9 +4,9 @@ import { Table, TableContainer, Paper } from "@material-ui/core";
 import { mergeClasses } from "@material-ui/styles";
 import { HdrStrongSharp } from "@material-ui/icons";
 import { Button } from "@material-ui/core";
+import UpdateSong from "../UpdateSong/UpdateSong";
 
 const DisplaySong = (props) => {
-  
   return (
     <table className="table">
       <thead>
@@ -29,9 +29,15 @@ const DisplaySong = (props) => {
               <td>{songs.album}</td>
               <td>{songs.release_date}</td>
               <td>{songs.genre}</td>
-              <Button onClick={()=>props.deleteSong(songs.id)} variant="contained" color="secondary" type="submit">
+              <Button
+                onClick={() => props.deleteSong(songs.id)}
+                variant="contained"
+                color="secondary"
+                type="submit"
+              >
                 Delete
               </Button>
+             <UpdateSong/>
             </tr>
           );
         })}

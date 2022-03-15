@@ -8,7 +8,7 @@ import { Grid, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import axios from "axios";
 import DisplaySong from "./Components/DisplaySong/DisplaySong";
-import Image  from './images/jeremy.jpg';
+import UpdateSong from "./Components/UpdateSong/UpdateSong";
 
 const useStyles = makeStyles((theme) => ({
   root: {
