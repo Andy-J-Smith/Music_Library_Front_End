@@ -6,8 +6,6 @@ import "./App.css";
 import NavBar from "./Components/NavBar/NavBar";
 import { Grid, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
-import { CallMissedSharp } from "@material-ui/icons";
-import Image from "./images/jeremy.jpg";
 import axios from "axios";
 import DisplaySong from "./Components/DisplaySong/DisplaySong";
 
@@ -28,7 +26,7 @@ function App() {
 
   useEffect(() => {
     getAllSongs();
-  }, []);
+  }, []);           //add search function result into []
 
   async function createSong(newSong) {
     let response = await axios.post(
@@ -40,19 +38,44 @@ function App() {
     }
   }
 
-  // async function deleteSong(id, e ) {
-  //   let response = await axios.delete(
-  //     `http://127.0.0.1:8000/api/music/songs/${id}`
-  //   );
+  async function deleteSong(id, e ) {
+    let response = await axios.delete(
+      `http://127.0.0.1:8000/api/music/songs/${id}`
+    );
+
+    }
   
-  //   }
-  // }
 
   async function getAllSongs() {
     let response = await axios.get("http://127.0.0.1:8000/api/music/songs/");
     setSongs(response.data);
     console.log(response.data);
   }
+
+
+  const handleSearch = (event) => {
+    const keyword = event.target.value;
+
+    if (keyword !== "") {
+      const results = songs.filter((songs) => {
+        return songs.title.toLowerCase().startsWith(keyword.toLowerCase());
+      });
+      setSongs(results);
+    } else {
+      setSongs(songs);
+    }
+  };
+
+  // function findParents(personWithParents, people) {
+  //   let foundParents = people.filter(function (potentialParent) {
+  //     if (personWithParents.parents.includes(personWithParents.id)) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   });
+  //   displayPeople(foundParents);
+  // }
 
   return (
     <div className={classes.root}>
@@ -71,11 +94,12 @@ function App() {
           </Paper>
         </Grid>
         <Grid container alignItems="center" direction="column" spacing={1}>
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <DisplaySong getAllSongs={getAllSongs} songs={songs} />
-              </Paper>
-            </Grid>
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              <input type="text" onChange={(event) => handleSearch(event)} />
+              <DisplaySong deleteSong={deleteSong} songs={songs} />
+            </Paper>
+          </Grid>
         </Grid>
       </Grid>
     </div>

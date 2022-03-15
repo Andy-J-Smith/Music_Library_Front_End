@@ -6,6 +6,7 @@ import { HdrStrongSharp } from "@material-ui/icons";
 import { Button } from "@material-ui/core";
 
 const DisplaySong = (props) => {
+  
   return (
     <table className="table">
       <thead>
@@ -28,9 +29,9 @@ const DisplaySong = (props) => {
               <td>{songs.album}</td>
               <td>{songs.release_date}</td>
               <td>{songs.genre}</td>
-              {/* <Button onSubmit={deleteSong} variant="contained" color="secondary" type="submit">
+              <Button onClick={()=>props.deleteSong(songs.id)} variant="contained" color="secondary" type="submit">
                 Delete
-              </Button> */}
+              </Button>
             </tr>
           );
         })}
